@@ -1,0 +1,13 @@
+{
+    "app_name": "Dependency-Sentry",
+    "version": "1.0.0",
+    "theme": "dark",
+    "api_endpoints": {
+        "pypi": "https://pypi.org/pypi/{package}/json",
+        "osv": "https://api.osv.dev/v1/query"
+    },
+    "scanner_settings": {
+        "abandonware_threshold_days": 730,
+        "max_depth": 4
+    }
+}
