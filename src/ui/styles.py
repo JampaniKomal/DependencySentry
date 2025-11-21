@@ -1,40 +1,42 @@
 class Theme:
-    # --- DARK MODE (Default) ---
-    DARK_STYLES = """
+    # Shared Button Style (Matches QuishGuard)
+    SIDEBAR_BTN_STYLE = """
+    QPushButton {
+        background-color: transparent;
+        color: #666666;
+        text-align: left;
+        padding-left: 20px; 
+        border: none;
+        border-left: 3px solid transparent;
+        font-weight: bold;
+        font-size: 12px;
+        height: 45px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    QPushButton:hover {
+        color: #FFFFFF;
+        background-color: #111111;
+        border-left: 3px solid #FFFFFF;
+    }
+    QPushButton:checked {
+        color: #FFFFFF;
+        background-color: #1A1A1A;
+        border-left: 3px solid #FFFFFF;
+    }
+    """
+
+    DARK_STYLES = SIDEBAR_BTN_STYLE + """
     QMainWindow {
         background-color: #050505;
     }
     
-    /* Sidebar Styling */
+    /* Sidebar with Gradient */
     QFrame#sidebar {
-        background-color: #000000;
-        border-right: 1px solid #333333;
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #000000, stop:1 #0F0F0F);
+        border-right: 1px solid #222222;
     }
     
-    /* Navigation Buttons */
-    QPushButton.nav_btn {
-        background-color: transparent;
-        color: #666666;
-        text-align: left;
-        padding: 15px 20px;
-        border: none;
-        border-left: 2px solid transparent;
-        font-weight: bold;
-        font-size: 12px;
-        font-family: 'Segoe UI', sans-serif;
-    }
-    QPushButton.nav_btn:hover {
-        color: #FFFFFF;
-        background-color: #111111;
-        border-left: 2px solid #FFFFFF;
-    }
-    QPushButton.nav_btn:checked {
-        color: #FFFFFF;
-        background-color: #1A1A1A;
-        border-left: 2px solid #FFFFFF;
-    }
-
-    /* Drop Zone */
+    /* Drop Zone - Dashed High Contrast */
     QLabel#drop_zone {
         background-color: #0A0A0A;
         border: 2px dashed #333333;
@@ -49,35 +51,32 @@ class Theme:
         background-color: #111111;
     }
     
-    /* General Text */
-    QLabel { color: #E0E0E0; }
+    /* Console Styling */
+    QTextEdit#console {
+        background-color: #080808;
+        border: 1px solid #222222;
+        color: #00FF00;  /* Hacker Green Text */
+        font-family: Consolas, 'Courier New', Monospace;
+        font-size: 12px;
+        padding: 10px;
+    }
+    
+    QSplitter::handle {
+        background-color: #222222;
+    }
+    QSplitter::handle:hover {
+        background-color: #FFFFFF; 
+    }
     """
 
-    # --- LIGHT MODE ---
-    LIGHT_STYLES = """
+    LIGHT_STYLES = SIDEBAR_BTN_STYLE.replace("#666666", "#888888").replace("#FFFFFF", "#000000").replace("#111111", "#EEEEEE").replace("#1A1A1A", "#DDDDDD") + """
     QMainWindow {
         background-color: #FFFFFF;
     }
     
     QFrame#sidebar {
-        background-color: #F5F5F5;
+        background-color: #F9F9F9;
         border-right: 1px solid #DDDDDD;
-    }
-    
-    QPushButton.nav_btn {
-        background-color: transparent;
-        color: #999999;
-        text-align: left;
-        padding: 15px 20px;
-        border: none;
-        border-left: 2px solid transparent;
-        font-weight: bold;
-        font-size: 12px;
-    }
-    QPushButton.nav_btn:hover {
-        color: #000000;
-        background-color: #EAEAEA;
-        border-left: 2px solid #000000;
     }
     
     QLabel#drop_zone {
@@ -87,11 +86,15 @@ class Theme:
         color: #888888;
         font-size: 14px;
     }
-    QLabel#drop_zone:hover {
-        border-color: #000000;
-        color: #000000;
-        background-color: #F0F0F0;
+    
+    QTextEdit#console {
+        background-color: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        color: #333333;
+        font-family: Consolas, Monospace;
     }
     
-    QLabel { color: #111111; }
+    QSplitter::handle {
+        background-color: #DDDDDD;
+    }
     """
