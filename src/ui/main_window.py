@@ -8,7 +8,7 @@ from PyQt6.QtGui import QDragEnterEvent, QDropEvent
 import qtawesome as qta
 
 from src.ui.styles import Theme
-from src.core.parser import ManifestParser
+from src.core.auditor import AuditWorker
 
 # --- CUSTOM CONSOLE WIDGET (From QuishGuard) ---
 class OverlayConsole(QTextEdit):
@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         self.resize(1200, 800)
         self.setAcceptDrops(True)
         
-        self.parser = ManifestParser()
+        self.worker = None
         self.is_dark = True
         
         # Icons
@@ -159,20 +159,27 @@ class MainWindow(QMainWindow):
             self.process_file(files[0])
 
     def process_file(self, file_path):
+        if self.worker is not None and self.worker.isRunning():
+            self.log_message("[!] An audit is already running.")
+            return
+
         self.console.clear()
         self.log_message(f"[*] Processing file: {file_path}")
-        
-        try:
-            packages = self.parser.parse(file_path)
-            if not packages:
-                self.log_message("[!] No valid packages found or file is empty.")
-                return
-                
-            self.log_message(f"[*] Found {len(packages)} direct dependencies.")
-            for pkg in packages:
-                self.log_message(f"    - {pkg}")
-                
-            self.drop_zone.setText(f"LOADED: {os.path.basename(file_path)}\n\nReady to Audit.")
-            
-        except Exception as e:
-            self.log_message(f"[!] Critical Error: {str(e)}")
+        self.drop_zone.setText(f"LOADED: {os.path.basename(file_path)}\n\nAuditing...")
+        self.drop_zone.setEnabled(False)
+
+        self.worker = AuditWorker(file_path)
+        self.worker.log.connect(self.log_message)
+        self.worker.scan_complete.connect(lambda result: self.on_scan_complete(file_path, result))
+        self.worker.start()
+
+    def on_scan_complete(self, file_path, result):
+        self.drop_zone.setEnabled(True)
+        vulnerable_count = len(result.get("vulnerable", []))
+        if vulnerable_count:
+            self.drop_zone.setText(
+                f"LOADED: {os.path.basename(file_path)}\n\n"
+                f"{vulnerable_count} package(s) with known vulnerabilities."
+            )
+        else:
+            self.drop_zone.setText(f"LOADED: {os.path.basename(file_path)}\n\nNo known vulnerabilities found.")
