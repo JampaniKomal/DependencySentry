@@ -37,7 +37,7 @@ jobs:
       - name: Lint
         run: ruff check . && ruff format --check .
 
-      - name: Tests (offline: PyPI and OSV.dev are faked)
+      - name: "Tests (offline: PyPI and OSV.dev are faked)"
         run: python -m pytest -q
 
   live:
