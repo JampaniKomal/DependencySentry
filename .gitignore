@@ -36,3 +36,7 @@ Desktop.ini
 # Application Specific
 config_local.json
 dependency_cache.json
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+sbom.cdx.json

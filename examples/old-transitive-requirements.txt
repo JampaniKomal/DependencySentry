@@ -1,0 +1,3 @@
+# requests 2.19.1 pins urllib3<1.24 and idna<2.8: the versions that would really be
+# installed are old and vulnerable, though the latest urllib3 and idna are clean.
+requests==2.19.1
