@@ -1,4 +1,4 @@
-PyQt6==6.7.1
-requests==2.33.0
-packaging==23.2
+PyQt6==6.11.0
 qtawesome==1.4.2
+requests==2.34.2
+packaging==26.3
