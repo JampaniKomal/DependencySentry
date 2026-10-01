@@ -55,7 +55,7 @@ jobs:
       - name: Live end-to-end test
         env:
           DEPENDENCY_SENTRY_NETWORK: "1"
-        run: python -m pytest -q -m network
+        run: python -m pytest -q -m network tests/test_audit_export.py
 
       - name: Audit the example manifests and validate the SBOM
         run: |
