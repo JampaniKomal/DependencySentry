@@ -5,7 +5,7 @@ class Theme:
         background-color: transparent;
         color: #666666;
         text-align: left;
-        padding-left: 20px; 
+        padding-left: 20px;
         border: none;
         border-left: 3px solid transparent;
         font-weight: bold;
@@ -25,17 +25,19 @@ class Theme:
     }
     """
 
-    DARK_STYLES = SIDEBAR_BTN_STYLE + """
+    DARK_STYLES = (
+        SIDEBAR_BTN_STYLE
+        + """
     QMainWindow {
         background-color: #050505;
     }
-    
+
     /* Sidebar with Gradient */
     QFrame#sidebar {
         background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #000000, stop:1 #0F0F0F);
         border-right: 1px solid #222222;
     }
-    
+
     /* Drop Zone - Dashed High Contrast */
     QLabel#drop_zone {
         background-color: #0A0A0A;
@@ -50,7 +52,7 @@ class Theme:
         color: #FFFFFF;
         background-color: #111111;
     }
-    
+
     /* Console Styling */
     QTextEdit#console {
         background-color: #080808;
@@ -60,25 +62,31 @@ class Theme:
         font-size: 12px;
         padding: 10px;
     }
-    
+
     QSplitter::handle {
         background-color: #222222;
     }
     QSplitter::handle:hover {
-        background-color: #FFFFFF; 
+        background-color: #FFFFFF;
     }
     """
+    )
 
-    LIGHT_STYLES = SIDEBAR_BTN_STYLE.replace("#666666", "#888888").replace("#FFFFFF", "#000000").replace("#111111", "#EEEEEE").replace("#1A1A1A", "#DDDDDD") + """
+    LIGHT_STYLES = (
+        SIDEBAR_BTN_STYLE.replace("#666666", "#888888")
+        .replace("#FFFFFF", "#000000")
+        .replace("#111111", "#EEEEEE")
+        .replace("#1A1A1A", "#DDDDDD")
+        + """
     QMainWindow {
         background-color: #FFFFFF;
     }
-    
+
     QFrame#sidebar {
         background-color: #F9F9F9;
         border-right: 1px solid #DDDDDD;
     }
-    
+
     QLabel#drop_zone {
         background-color: #FAFAFA;
         border: 2px dashed #CCCCCC;
@@ -86,15 +94,16 @@ class Theme:
         color: #888888;
         font-size: 14px;
     }
-    
+
     QTextEdit#console {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
         color: #333333;
         font-family: Consolas, Monospace;
     }
-    
+
     QSplitter::handle {
         background-color: #DDDDDD;
     }
     """
+    )
